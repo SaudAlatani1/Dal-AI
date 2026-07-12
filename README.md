@@ -1,38 +1,212 @@
-# 📍 دالّ (Dall) - المستشار الخيري الذكي
+# Dall — AI-Powered Charity Advisor
 
-**دالّ** هو وكيل ذكاء اصطناعي (AI Agent) صُمم لمساعدة المستخدمين في الوصول إلى المنصات الخيرية الرسمية في المملكة العربية السعودية بدقة وسهولة. يستخدم المشروع تقنيات متقدمة لتحليل "نية" المستخدم وتوجيهه للمكان الصحيح (إحسان، تبرع، شفاء، وغيرها) بناءً على قاعدة بيانات موثوقة.
+Dall is an AI-powered assistant designed to help users discover trusted and official charitable platforms in Saudi Arabia.
 
----
+The system analyzes each user’s intent and recommends the most relevant platform—such as Ehsan, Tabaraa, Shefaa, and others—using a structured and reliable data source.
 
-## 🚀 التقنيات المستخدمة (Tech Stack)
+## Features
 
-تم بناء المشروع باستخدام أحدث تقنيات الذكاء الاصطناعي وتطوير الويب:
-* **Backend:** FastAPI (Python) لبناء خادم سريع وفعال.
-* **AI Orchestration:** LangGraph لتصميم تدفق منطقي للوكيل الذكي (Nodes & Edges).
-* **LLM:** Llama 3 (عبر منصة Groq) لمعالجة اللغة الطبيعية وفهم اللهجة السعودية.
-* **RAG Logic:** نظام "Full-Scan" لتحليل ملف البيانات `platforms.json` مباشرة دون الحاجة لقواعد بيانات متجهة معقدة.
+- Understands user requests in Arabic and the Saudi dialect.
+- Classifies requests into relevant charitable categories.
+- Recommends trusted charitable platforms in Saudi Arabia.
+- Applies strict filtering to prevent irrelevant recommendations.
+- Generates clear and user-friendly responses.
+- Uses a lightweight retrieval approach without requiring a vector database.
+- Provides a simple and responsive web interface.
 
----
+## Tech Stack
 
-## 🛠️ آلية العمل (System Architecture)
+| Component | Technology | Purpose |
+|---|---|---|
+| Backend | FastAPI, Python | Provides a fast and reliable API |
+| AI Orchestration | LangGraph | Manages the agent workflow using nodes and edges |
+| Language Model | Llama 3 via Groq | Processes natural language and understands Saudi Arabic |
+| Data Retrieval | Full-Scan Retrieval | Searches the structured dataset directly |
+| Data Source | JSON | Stores charitable platform information |
+| Frontend | HTML, CSS, JavaScript | Provides the user interface |
 
-يعتمد المحرك الذكي في "دالّ" على خطوتين رئيسيتين (Nodes):
+## System Architecture
 
-1.  **Logic Node (عقدة المنطق):** تقوم بتحليل الطلب وتصنيفه (طبي، سكني، مالي، جهدي، أو مشاريع). تستخدم هذه العقدة "فلترة صارمة" لضمان عدم ظهور منصات غير ذات صلة.
-2.  **Formatter Node (عقدة التنسيق):** تقوم بصياغة الرد النهائي بلهجة سعودية ودودة وتجهيز قائمة المنصات المختارة للمستخدم.
+Dall processes each user request through two main workflow nodes:
 
----
+### Logic Node
 
-## 📂 هيكلة المشروع (Project Structure)
+The Logic Node analyzes the request, identifies the user’s intent, and classifies it into an appropriate category, such as:
+
+- Medical assistance
+- Housing support
+- Financial assistance
+- Volunteering opportunities
+- Charitable projects
+
+It then applies strict filtering rules to return only relevant and trusted platforms.
+
+### Formatter Node
+
+The Formatter Node converts the processed results into a clear and user-friendly response. Recommendations are presented in a natural and approachable Saudi Arabic tone.
+
+## Workflow
+
+```mermaid
+flowchart LR
+    A[User Request] --> B[FastAPI]
+    B --> C[Logic Node]
+    C --> D[Platform Dataset]
+    D --> E[Formatter Node]
+    E --> F[Recommended Platforms]
+```
+
+1. The user submits a request through the web interface.
+2. FastAPI sends the request to the LangGraph workflow.
+3. The Logic Node detects the user’s intent and category.
+4. The system scans `platforms.json` and filters the available platforms.
+5. The Formatter Node generates the final response.
+6. The recommended charitable platforms are displayed to the user.
+
+## Project Structure
 
 ```text
-Dal-AI-Agent/
+Dall-AI-Agent/
 ├── data/
-│   └── platforms.json      # قاعدة بيانات المنصات والخدمات الخيرية
+│   └── platforms.json      # Charitable platforms and services dataset
 ├── frontend-dall/
-│   ├── index.html          # واجهة المستخدم (HTML/CSS/JS)
-│   └── ... 
-├── api.py                  # جسر الربط بين الواجهة ومنطق الذكاء الاصطناعي
-├── nodes.py                # العمليات البرمجية والذكاء الاصطناعي
-├── graph.py                # تعريف مسار عمل الـ Agent عبر LangGraph
-└── requirements.txt        # المكتبات البرمجية اللازمة للتشغيل
+│   ├── index.html          # Frontend user interface
+│   └── ...
+├── api.py                  # API layer connecting the frontend to the AI logic
+├── nodes.py                # Core processing and AI workflow nodes
+├── graph.py                # LangGraph workflow definition
+└── requirements.txt        # Python dependencies
+```
+
+## Getting Started
+
+### Prerequisites
+
+Before running the project, make sure you have:
+
+- Python 3.10 or later
+- A Groq API key
+- Git
+
+### Installation
+
+Clone the repository:
+
+```bash
+git clone https://github.com/USERNAME/Dall-AI-Agent.git
+cd Dall-AI-Agent
+```
+
+Create and activate a virtual environment:
+
+```bash
+python -m venv .venv
+```
+
+On Windows:
+
+```bash
+.venv\Scripts\activate
+```
+
+On macOS or Linux:
+
+```bash
+source .venv/bin/activate
+```
+
+Install the required dependencies:
+
+```bash
+pip install -r requirements.txt
+```
+
+### Environment Variables
+
+Create a `.env` file in the project root:
+
+```env
+GROQ_API_KEY=your_groq_api_key
+```
+
+> Never commit API keys or the `.env` file to the repository.
+
+### Running the Application
+
+Start the FastAPI server:
+
+```bash
+uvicorn api:app --reload
+```
+
+Then open the frontend interface in your browser.
+
+The API documentation is available at:
+
+```text
+http://127.0.0.1:8000/docs
+```
+
+## Data Source
+
+The `platforms.json` file contains information about supported charitable platforms and their services.
+
+Dall uses a full-scan retrieval approach to evaluate this dataset directly. This keeps the architecture simple and avoids the additional complexity of a vector database.
+
+## API
+
+The backend is built with FastAPI. Once the server is running, interactive API documentation can be accessed through Swagger UI:
+
+```text
+http://127.0.0.1:8000/docs
+```
+
+## Roadmap
+
+- Expand the database of supported charitable platforms.
+- Improve intent classification accuracy.
+- Add automated testing.
+- Support additional Arabic dialects.
+- Add conversation history and contextual recommendations.
+- Deploy the application to a production environment.
+
+## Contributing
+
+Contributions are welcome.
+
+1. Fork the repository.
+2. Create a new branch:
+
+   ```bash
+   git checkout -b feature/feature-name
+   ```
+
+3. Commit your changes:
+
+   ```bash
+   git commit -m "Add feature description"
+   ```
+
+4. Push the branch:
+
+   ```bash
+   git push origin feature/feature-name
+   ```
+
+5. Open a pull request.
+
+## Security
+
+If you discover a security issue, please report it privately instead of opening a public issue.
+
+Do not include API keys, credentials, or sensitive information in commits.
+
+## License
+
+This project does not currently specify a license. Add a `LICENSE` file if you want to define how others may use, modify, or distribute the project.
+
+## Author
+
+**Saud Alatani**
+
+Artificial Intelligence Engineer
