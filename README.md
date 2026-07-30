@@ -170,40 +170,7 @@ http://127.0.0.1:8000/docs
 - Add conversation history and contextual recommendations.
 - Deploy the application to a production environment.
 
-## Contributing
 
-Contributions are welcome.
-
-1. Fork the repository.
-2. Create a new branch:
-
-   ```bash
-   git checkout -b feature/feature-name
-   ```
-
-3. Commit your changes:
-
-   ```bash
-   git commit -m "Add feature description"
-   ```
-
-4. Push the branch:
-
-   ```bash
-   git push origin feature/feature-name
-   ```
-
-5. Open a pull request.
-
-## Security
-
-If you discover a security issue, please report it privately instead of opening a public issue.
-
-Do not include API keys, credentials, or sensitive information in commits.
-
-## License
-
-This project does not currently specify a license. Add a `LICENSE` file if you want to define how others may use, modify, or distribute the project.
 
 ## Author
 
